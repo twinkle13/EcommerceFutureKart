@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rokkitt:100,300,400,700" rel="stylesheet">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+
+    
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top colorlib-loader" style="margin-bottom:250px">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("FutureKart", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" , @style = "font-size:30px" })
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class=" col-md-4 nav navbar-nav  pull-right">
+
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (Session["UserID"] == null)
+                    {
+                        <li>@Html.ActionLink("SignUp", "Register", "Registration")</li>
+                        <li>@Html.ActionLink("SignIn", "Login", "Login")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("View Cart", "ViewCart", "Cart")</li>
+                        <li>@Html.ActionLink("My Orders", "MyOrders", "Order")</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+                    }
+                </ul>
+
+
+            </div>
+
+        </div>
+        @Html.Action("GetCategories", "Category")
+    </div>
+
+    <div class="container body-content" style="margin-top:80px">
+
+        <hr />
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+
+    <!-- Main -->
+    <script src="~/Scripts/main.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var quantitiy = 0;
+            $('.quantity-right-plus').click(function (e) {
+
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                var quantity = parseInt($('#quantity').val());
+
+                // If is not undefined
+
+                $('#quantity').val(quantity + 1);
+
+
+                // Increment
+
+            });
+
+            $('.quantity-left-minus').click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                var quantity = parseInt($('#quantity').val());
+
+                // If is not undefined
+
+                // Increment
+                if (quantity > 0) {
+                    $('#quantity').val(quantity - 1);
+                }
+            });
+
+        });
+    </script>
+
+
+    @RenderSection("scripts", required: false)
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
